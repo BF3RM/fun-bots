@@ -10,6 +10,7 @@ end
 
 function ClientBotManager:RegisterVars()
 	self.m_RaycastTimer = 0
+	self.m_CheckSoldierTimer = 0
 	self.m_AliveTimer = 0
 	self.m_LastIndex = 1
 	self.m_Player = nil
@@ -59,6 +60,40 @@ function ClientBotManager:OnEngineMessage(p_Message)
 	end
 end
 
+function ClientBotManager:CheckSoldiers()
+	local s_Players = {}
+	local s_Iterator = EntityManager:GetIterator("ClientSoldierEntity")
+	local s_Entity = s_Iterator:Next()
+	local s_SoldierWithoutPlayerCount = 0
+
+	while s_Entity ~= nil do
+		s_Entity = SoldierEntity(s_Entity)
+		if s_Entity.player == nil then
+			s_SoldierWithoutPlayerCount = s_SoldierWithoutPlayerCount + 1
+			s_Entity:Destroy()
+		else
+			local s_PlayerName = s_Entity.player.name
+			if s_PlayerName ~= nil then
+				if s_Players[s_PlayerName] ~= nil then
+					print("multiple soldiers at one player")
+					s_Entity:Destroy()
+					local s_Player = PlayerManager:GetPlayersByName(s_PlayerName)
+					if s_Player ~= nil then
+						s_Player.soldier:Destroy()
+					end
+					print("tried to kill both of them")
+				else
+					s_Players[s_PlayerName] = true
+				end
+			end
+		end
+		s_Entity = s_Iterator:Next()
+	end
+	if s_SoldierWithoutPlayerCount > 0 then
+		print(s_SoldierWithoutPlayerCount.." soldiers without players")
+	end
+end
+
 function ClientBotManager:OnUpdateManagerUpdate(p_DeltaTime, p_UpdatePass)
 	if p_UpdatePass ~= UpdatePass.UpdatePass_PreFrame or not self.m_ReadyToUpdate then
 		return
@@ -73,6 +108,12 @@ function ClientBotManager:OnUpdateManagerUpdate(p_DeltaTime, p_UpdatePass)
 	end
 
 	self.m_RaycastTimer = self.m_RaycastTimer + p_DeltaTime
+	self.m_CheckSoldierTimer = self.m_CheckSoldierTimer + p_DeltaTime
+	
+	if self.m_CheckSoldierTimer > 2.0 then
+		self:CheckSoldiers()
+		self.m_CheckSoldierTimer = 0
+	end
 
 	if self.m_RaycastTimer < StaticConfig.RaycastInterval then
 		return
