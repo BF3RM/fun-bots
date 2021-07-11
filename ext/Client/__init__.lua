@@ -46,6 +46,12 @@ function FunBotClient:RegisterEvents()
 	Events:Subscribe('Client:UpdateInput', self, self.OnClientUpdateInput)
 	Events:Subscribe('Engine:Update', self, self.OnEngineUpdate)
 	Events:Subscribe('UI:DrawHud', self, self.OnUIDrawHud)
+	Events:Subscribe('Player:Killed', function(player)
+		if player.corpse ~= nil then
+			player.corpse:Destroy()
+			--print("destroy corpse of dead player") --does not work as inteded :-/
+		end
+	end)
 
 	NetEvents:Subscribe('WriteClientSettings', self, self.OnWriteClientSettings)
 	NetEvents:Subscribe('CheckBotBotAttack', self, self.CheckForBotBotAttack)
