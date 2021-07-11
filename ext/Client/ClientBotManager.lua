@@ -61,7 +61,6 @@ function ClientBotManager:OnEngineMessage(p_Message)
 end
 
 function ClientBotManager:CheckSoldiers()
-	local s_Players = {}
 	local s_Iterator = EntityManager:GetIterator("ClientSoldierEntity")
 	local s_Entity = s_Iterator:Next()
 	local s_SoldierWithoutPlayerCount = 0
@@ -70,27 +69,22 @@ function ClientBotManager:CheckSoldiers()
 		s_Entity = SoldierEntity(s_Entity)
 		if s_Entity.player == nil then
 			s_SoldierWithoutPlayerCount = s_SoldierWithoutPlayerCount + 1
-			s_Entity:Destroy()
-		else
-			local s_PlayerName = s_Entity.player.name
-			if s_PlayerName ~= nil then
-				if s_Players[s_PlayerName] ~= nil then
-					print("multiple soldiers at one player")
-					s_Entity:Destroy()
-					local s_Player = PlayerManager:GetPlayersByName(s_PlayerName)
-					if s_Player ~= nil then
-						s_Player.soldier:Destroy()
-					end
-					print("tried to kill both of them")
-				else
-					s_Players[s_PlayerName] = true
-				end
+			-- print(tostring(s_Entity.isAlive).." "..tostring(s_Entity.isManDown).." "..tostring(s_Entity.isDead).." "..tostring(s_Entity.isDying))
+			if s_Entity.isManDown == true then
+				s_Entity:Destroy()
 			end
 		end
 		s_Entity = s_Iterator:Next()
 	end
 	if s_SoldierWithoutPlayerCount > 0 then
 		print(s_SoldierWithoutPlayerCount.." soldiers without players")
+	end
+end
+
+function ClientBotManager:OnPlayerRespawn(p_Player)
+	if p_Player.corpse ~= nil then
+		print("destroy corpse")
+		p_Player.corpse:Destroy()
 	end
 end
 
