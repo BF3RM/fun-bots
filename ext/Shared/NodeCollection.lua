@@ -905,6 +905,8 @@ function NodeCollection:Load(p_LevelName, p_GameMode)
 	self.gameMode = p_GameMode or self.gameMode
 
 	self.mapName = self.levelName .. '_' .. self.gameMode
+	
+	self.mapName = self.mapName:gsub(" ", "_")
 
 	m_Logger:Write('Load: '..self.mapName)
 
