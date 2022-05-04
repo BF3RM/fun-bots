@@ -29,7 +29,6 @@ local m_ClientNodeEditor = require('ClientNodeEditor')
 local m_ClientSpawnPointHelper = require('ClientSpawnPointHelper')
 local m_ConsoleCommands = require('ConsoleCommands')
 local m_Language = require('__shared/Language')
-local m_FunBotUIClient = require('UIClient')
 
 
 function FunBotClient:__init()
@@ -40,7 +39,6 @@ function FunBotClient:OnExtensionLoaded()
 	--m_Language:loadLanguage(Config.Language)
 	self:RegisterEvents()
 	self:RegisterHooks()
-	m_FunBotUIClient:OnExtensionLoaded()
 
 	-- Announce the version in the client's console if enabled in the registry
 	if Registry.CLIENT_SHOW_VERSION_ON_JOIN then
@@ -57,12 +55,10 @@ function FunBotClient:RegisterEvents()
 	Events:Subscribe('Player:Deleted', self, self.OnPlayerDeleted)
 	Events:Subscribe('Client:UpdateInput', self, self.OnClientUpdateInput)
 	Events:Subscribe('Engine:Update', self, self.OnEngineUpdate)
-	Events:Subscribe('UI:DrawHud', self, self.OnUIDrawHud)
 	Events:Subscribe('Partition:Loaded', self, self.OnPartitionLoaded)
-
+	
 	NetEvents:Subscribe('WriteClientSettings', self, self.OnWriteClientSettings)
 	NetEvents:Subscribe('CheckBotBotAttack', self, self.CheckForBotBotAttack)
-	NetEvents:Subscribe('UI_Settings', self, self.OnUISettings)
 
 	NetEvents:Subscribe('ConsoleCommands:RegisterCommands', self, self.OnRegisterConsoleCommands)
 	NetEvents:Subscribe('ConsoleCommands:PrintResponse', self, self.OnPrintResponse)
@@ -92,7 +88,6 @@ end
 
 function FunBotClient:OnExtensionUnloading()
 	m_ClientBotManager:OnExtensionUnloading()
-	m_FunBotUIClient:OnExtensionUnloading()
 end
 
 function FunBotClient:OnLevelDestroy()
@@ -114,7 +109,6 @@ function FunBotClient:OnClientUpdateInput(p_DeltaTime)
 	m_ClientNodeEditor:OnClientUpdateInput(p_DeltaTime)
 	m_ClientBotManager:OnClientUpdateInput(p_DeltaTime)
 	m_ClientSpawnPointHelper:OnClientUpdateInput(p_DeltaTime)
-	m_FunBotUIClient:OnClientUpdateInput(p_DeltaTime)
 end
 
 function FunBotClient:OnEngineUpdate(p_DeltaTime, p_SimulationDeltaTime)

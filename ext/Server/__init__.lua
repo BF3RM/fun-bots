@@ -44,7 +44,6 @@ local m_bugReport = require('Debug/BugReport')
 local m_ChatCommands = require('Commands/Chat')
 local m_Console = require('Commands/Console')
 local m_RCONCommands = require('Commands/RCON')
-local m_FunBotUIServer = require('UIServer')
 local m_AirTargets = require('AirTargets')
 local m_GameDirector = require('GameDirector')
 PermissionManager = require('PermissionManager')
@@ -103,6 +102,8 @@ function FunBotServer:RegisterEvents()
 	Events:Subscribe('Vehicle:Enter', self, self.OnVehicleEnter)
 	Events:Subscribe('Vehicle:Exit', self, self.OnVehicleExit)
 
+	Events:Subscribe('RM_Bots:SpawnBots', self, self.OnSpawnBotsEvent)
+	Events:Subscribe('RM_Bots:RemoveBots', self, self.OnRemoveBotsEvent)
 	--Events:Subscribe('Soldier:HealthAction', m_BotManager, m_BotManager.OnSoldierHealthAction)	-- use this for more options on revive. Not needed yet
 	--Events:Subscribe('GunSway:Update', m_BotManager, m_BotManager.OnGunSway)
 	--Events:Subscribe('GunSway:UpdateRecoil', m_BotManager, m_BotManager.OnGunSway)
@@ -187,6 +188,14 @@ end
 -- =============================================
 -- Events
 -- =============================================
+
+function FunBotServer:OnSpawnBotsEvent(p_Count, p_TeamId)
+	m_BotSpawner:SpawnWayBots(nil, p_Count, true, 0, 0, p_TeamId)
+end
+
+function FunBotServer:OnRemoveBotsEvent(p_TeamId)
+	m_BotManager:DestroyAll(nil, p_TeamId)
+end
 
 function FunBotServer:OnExtensionUnloading()
 	m_BotManager:DestroyAll(nil, nil, true)
