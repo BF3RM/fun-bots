@@ -28,7 +28,7 @@ Config = {
 	SpawnMode = SpawnModes.balanced_teams,	-- mode the bots spawn with
 	TeamSwitchMode = TeamSwitcheModes.SwitchForRoundTwo,	-- Mode to switch the team
 	SpawnInBothTeams = true,			-- Bots spawn in both teams
-	InitNumberOfBots = 16,				-- bots for spawnmode
+	InitNumberOfBots = 0,				-- bots for spawnmode
 	NewBotsPerNewPlayer = 1.6,			-- number to increase Bots, when new players join
 	FactorPlayerTeamCount = 0.8,		-- reduce playerteam in balanced_teams or fixed_number mode
 	BotTeam = 0,						-- default bot team (0 = neutral / auto, 1 = US, 2 = RU) TeamId.Team2
@@ -41,19 +41,19 @@ Config = {
 	BotMaxHealth = 100.0,				-- max health of bot (default 100.0)
 
 	--SPAWNLIMITS
-	MaxBotsPerTeamDefault = 32,			-- max number of bots in one team, if no other mode fits
-	MaxBotsPerTeamTdm = 32,				-- max number of bots in one team for TDM
-	MaxBotsPerTeamTdmc = 8,				-- max number of bots in one team for TDM-CQ
-	MaxBotsPerTeamSdm = 5,				-- max number of bots in one team for Squad-DM
-	MaxBotsPerTeamCl = 32,				-- max number of bots in one team for CQ-Large
-	MaxBotsPerTeamCs = 16,				-- max number of bots in one team for CQ-Small
-	MaxBotsPerTeamCal = 32,				-- max number of bots in one team for CQ-Assault-Large
-	MaxBotsPerTeamCas = 16,				-- max number of bots in one team for CQ-Assault-Small
-	MaxBotsPerTeamRl = 24,				-- max number of bots in one team for Rush
-	MaxBotsPerTeamCtf = 24,				-- max number of bots in one team for CTF
-	MaxBotsPerTeamD = 12,				-- max number of bots in one team for Domination
-	MaxBotsPerTeamGm = 12,				-- max number of bots in one team for Gunmaster
-	MaxBotsPerTeamS = 12,				-- max number of bots in one team for Scavenger
+	MaxBotsPerTeamDefault = 64,			-- max number of bots in one team, if no other mode fits
+	MaxBotsPerTeamTdm = 64,				-- max number of bots in one team for TDM
+	MaxBotsPerTeamTdmc = 64,				-- max number of bots in one team for TDM-CQ
+	MaxBotsPerTeamSdm = 64,				-- max number of bots in one team for Squad-DM
+	MaxBotsPerTeamCl = 64,				-- max number of bots in one team for CQ-Large
+	MaxBotsPerTeamCs = 64,				-- max number of bots in one team for CQ-Small
+	MaxBotsPerTeamCal = 64,				-- max number of bots in one team for CQ-Assault-Large
+	MaxBotsPerTeamCas = 64,				-- max number of bots in one team for CQ-Assault-Small
+	MaxBotsPerTeamRl = 64,				-- max number of bots in one team for Rush
+	MaxBotsPerTeamCtf = 64,				-- max number of bots in one team for CTF
+	MaxBotsPerTeamD = 64,				-- max number of bots in one team for Domination
+	MaxBotsPerTeamGm = 64,				-- max number of bots in one team for Gunmaster
+	MaxBotsPerTeamS = 64,				-- max number of bots in one team for Scavenger
 
 	--BEHAVIOUR
 	FovForShooting = 180,				-- Degrees of FOV of Bot
@@ -148,10 +148,10 @@ Config = {
 	SpawnMethod = SpawnMethod.SpawnSoldierAt,	-- method the bots spawn with. Careful, not supported on most of the maps!!
 
 	--OTHER
-	DisableUserInterface = false,		-- if true, the complete UI will be disabled (not available in the UI -) )
+	DisableUserInterface = true,		-- if true, the complete UI will be disabled (not available in the UI -) )
 	DisableChatCommands = false,		-- if true, no chat commands can be used
 	DisableRCONCommands = false,		-- if true, no RCON commands can be used
-	IgnorePermissions = false,			-- if true, all permissions are ignored --> everyone can do everything
+	IgnorePermissions = true,			-- if true, all permissions are ignored --> everyone can do everything
 	Language = nil,						-- de_DE as sample (default is english, when language file doesnt exists)
 }
 
