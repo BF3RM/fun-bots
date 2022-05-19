@@ -590,11 +590,7 @@ function Bot:ResetSpawnVars()
 	self._AttackMode = BotAttackModes.RandomNotSet
 	self._ShootWayPoints = {}
 
-	if self.m_ActiveWeapon.Type == WeaponTypes.Sniper then
-		self._Skill = math.random()*Config.BotSniperWorseningSkill
-	else
-		self._Skill = math.random()*Config.BotWorseningSkill
-	end
+	self._Skill = math.random()*Config.BotWorseningSkill
 
 	self._ShotTimer = 0
 	self._UpdateTimer = 0

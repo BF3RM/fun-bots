@@ -674,7 +674,7 @@ function BotSpawner:_TriggerSpawn(p_Bot)
 		-- seems to be the same as DeathMatchSpawn
 		-- but it has vehicles
 		self:_RushSpawn(p_Bot)
-	elseif s_CurrentGameMode:match("Conquest") then
+	elseif s_CurrentGameMode:match("Conquest") or s_CurrentGameMode:match("AAS") then
 		-- event + target spawn ("ID_H_US_B", "_ID_H_US_HQ", etc.)
 		self:_ConquestSpawn(p_Bot)
 	end
