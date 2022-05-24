@@ -10,7 +10,7 @@ local m_Debug = require('Debug/BugReport')
 -- @todo - Create a Permission Manager to merge permission check into a single function.
 
 function ChatCommands:Execute(p_Parts, p_Player)
-	if p_Player == nil or Config.DisableChatCommands == true then
+	if p_Player == nil then
 		return
 	end
 

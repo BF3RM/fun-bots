@@ -25,7 +25,7 @@ Config = {
 	DamageFactorKnife = 1.5,			-- original Damage from bots gets multiplied by this
 
 	--SPAWN
-	SpawnMode = SpawnModes.balanced_teams,	-- mode the bots spawn with
+	SpawnMode = SpawnModes.manual,	-- mode the bots spawn with
 	TeamSwitchMode = TeamSwitcheModes.SwitchForRoundTwo,	-- Mode to switch the team
 	SpawnInBothTeams = true,			-- Bots spawn in both teams
 	InitNumberOfBots = 0,				-- bots for spawnmode
